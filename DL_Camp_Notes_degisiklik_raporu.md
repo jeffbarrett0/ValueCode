@@ -36,3 +36,9 @@ Kaynaklar: Wegcode / KB 01-12-1975 (wegcode.be), KB 30-09-2005 (ihlal dereceleri
 
 ## Doğrulanamayan, dokunulmayan maddeler
 Otoyol çıkış şeridi 90 km/h; polis memuru "yavaşla/hızlan" işaretleri; yakıt çevre sıralaması; far menzilleri; park lambası 50 m; otoyolda çekme yasağı ve puanı; yelek dışındaki €58 (park diski); M+S lastik tarihleri; ilk yardım çantası zorunluluğu; tıbbi uygunsuzluk 4 gün kuralı. Bunları resmî kaynakta teyit edemedim; sınavdan önce Vias / Flanders.be ile kontrol edin.
+
+## 2. tur (ikinci yapay zekâ kontrolü)
+| Gün | Düzeltme | Kaynak |
+|---|---|---|
+| 2 | Çekme: yalnız acil/yardımcı kuplajla çekilen araç otoyola giremez; "çekmek tamamen yasak" ve "ilk çıkışta ayrıl" ifadeleri kaldırıldı; puan −1 | Art. 21.1, 49.5 |
+| 3, 7, 13 | "Bisiklet yolunda bisikletli her zaman, soldan bile öncelikli" ifadesi daraltıldı: yolu geçerken bisikletliye yol verilir; kavşakta yol iki kesik çizgiyle devam ediyorsa bisikletlinin önceliği var | Art. 12.4bis, Vlaanderen/Wegcode bisiklet sayfası |
