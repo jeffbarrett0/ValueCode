@@ -18,7 +18,7 @@
     <section class="search card">
       <form id="searchForm" autocomplete="off">
         <input id="tickerInput" type="text" placeholder="Hisse kodu (örn. NVDA)" maxlength="10" spellcheck="false">
-        <button class="btn primary" type="submit">Analiz et</button>
+        <button id="searchBtn" class="btn primary" type="submit">Analiz et</button>
       </form>
       <p id="status" class="status" role="status"></p>
     </section>
@@ -42,7 +42,7 @@
   <aside id="settingsPanel" class="panel hidden" aria-label="Ayarlar">
     <div class="panel-in">
       <h2>Ayarlar</h2>
-      <p class="muted">Ağırlıklar (toplam 100 olmalı).</p>
+      <p class="muted">Kriter ağırlıkları (ideal toplam 100).</p>
       <div id="weights"></div>
       <p id="weightSum" class="muted"></p>
       <div class="row">
@@ -57,6 +57,10 @@
   </footer>
 
   <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/metrics.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/charts.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
