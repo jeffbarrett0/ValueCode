@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Value Code</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <h1 class="logo">Value<span>Code</span></h1>
+      <button id="settingsBtn" class="btn ghost" type="button">⚙ Ayarlar</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="search card">
+      <form id="searchForm" autocomplete="off">
+        <input id="tickerInput" type="text" placeholder="Hisse kodu (örn. NVDA)" maxlength="10" spellcheck="false">
+        <button class="btn primary" type="submit">Analiz et</button>
+      </form>
+      <p id="status" class="status" role="status"></p>
+    </section>
+
+    <section id="understand" class="card hidden">
+      <h2 id="companyName"></h2>
+      <p class="q">Bu şirketin nasıl para kazandığını anlıyor muyum?</p>
+      <div class="yn">
+        <button class="btn yes" data-ans="yes" type="button">Evet</button>
+        <button class="btn no" data-ans="no" type="button">Hayır</button>
+      </div>
+      <p id="understandWarn" class="warn hidden">Buffett bilmediği işe yatırım yapmaz. Bu puanı dikkatle yorumlayın.</p>
+    </section>
+
+    <section id="result" class="hidden">
+      <div id="total" class="card total"></div>
+      <div id="criteria" class="grid"></div>
+    </section>
+  </main>
+
+  <aside id="settingsPanel" class="panel hidden" aria-label="Ayarlar">
+    <div class="panel-in">
+      <h2>Ayarlar</h2>
+      <p class="muted">Ağırlıklar (toplam 100 olmalı).</p>
+      <div id="weights"></div>
+      <p id="weightSum" class="muted"></p>
+      <div class="row">
+        <button id="resetWeights" class="btn ghost" type="button">Varsayılan</button>
+        <button id="closeSettings" class="btn primary" type="button">Kapat</button>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="wrap disclaimer">
+    Bu bir yatırım tavsiyesi değildir. Puanlar geçmiş verilere dayanan basit tahminlerdir.
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
