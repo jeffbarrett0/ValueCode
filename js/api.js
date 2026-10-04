@@ -63,7 +63,9 @@
     }
     const inc = await statement("income-statement", symbol, key, notes);
     const bal = await statement("balance-sheet-statement", symbol, key, notes);
-    const cf = await statement("cash-flow-statement", symbol, key, notes);
+    let cf;
+    try { cf = await statement("cash-flow-statement", symbol, key, notes); }
+    catch (e) { if (e.code !== 404) throw e; cf = await statement("cashflow-statement", symbol, key, notes); }
     if (!inc.rows.length || !bal.rows.length || !cf.rows.length) {
       throw fail("nodata", symbol + " için finansal tablo bulunamadı.");
     }
