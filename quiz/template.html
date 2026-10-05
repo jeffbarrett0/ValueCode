@@ -1,0 +1,314 @@
+<title>Levha Antrenörü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one narrow column, sign card on top, answers as large full-width buttons. Colors come from Belgian road-sign blue, signal red and a cool paper ground. */
+:root{
+  --bg:#eef1f5; --surface:#ffffff; --surface2:#e4e9f0; --ink:#13202f; --muted:#56657a; --line:#cdd5e0;
+  --accent:#0a5aa8; --accent-ink:#ffffff; --good:#17794a; --good-bg:#dcf2e5; --bad:#b4302b; --bad-bg:#fbe3e1; --warn:#8a5a00; --warn-bg:#fdf0cf;
+  --card:#ffffff; --shadow:0 1px 2px rgba(19,32,47,.08),0 4px 14px rgba(19,32,47,.06);
+  --f-disp:"Barlow Condensed","Arial Narrow",system-ui,sans-serif; --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1621; --surface:#172231; --surface2:#1f2d40; --ink:#e8eef6; --muted:#9db0c6; --line:#2a3b52;
+  --accent:#5aa6f0; --accent-ink:#071526; --good:#5fd39a; --good-bg:#12372a; --bad:#ff8d86; --bad-bg:#43211f; --warn:#f2c35b; --warn-bg:#3a2e10;
+  --card:#ffffff; --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1621; --surface:#172231; --surface2:#1f2d40; --ink:#e8eef6; --muted:#9db0c6; --line:#2a3b52;
+  --accent:#5aa6f0; --accent-ink:#071526; --good:#5fd39a; --good-bg:#12372a; --bad:#ff8d86; --bad-bg:#43211f; --warn:#f2c35b; --warn-bg:#3a2e10;
+  --card:#ffffff; --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--f-body);padding-inline:16px;padding-block:14px 40px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;letter-spacing:.01em;margin:0;text-wrap:balance}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 16px}
+h1{font-size:2rem;line-height:1;text-transform:uppercase}
+.sub{color:var(--muted);font-size:.9rem}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;min-width:0}
+.stat b{display:block;font:700 1.25rem/1.1 var(--f-disp);font-variant-numeric:tabular-nums}
+.stat span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+nav.tabs{display:flex;flex-wrap:wrap;gap:6px}
+nav.tabs button{flex:0 0 auto}
+button{font:inherit;color:inherit;cursor:pointer}
+.tab{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:600}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:.85rem}
+.chip[aria-pressed="true"]{background:var(--surface2);border-color:var(--accent);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;color:var(--muted);font-size:.88rem}
+.row label{display:flex;gap:6px;align-items:center}
+select,input[type=search]{font:inherit;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+input[type=search]{width:100%;padding:10px 12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);min-width:0}
+.q{display:flex;flex-direction:column;gap:14px}
+.qhead{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.85rem;flex-wrap:wrap}
+.sign{align-self:center;background:var(--card);border:1px solid #d5dbe4;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:center;width:min(240px,100%);height:min(210px,60vw)}
+.sign img{width:100%;height:100%;object-fit:contain}
+.qtext{font:600 1.25rem/1.25 var(--f-disp);text-align:center;letter-spacing:.01em}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 14px;min-height:56px;min-width:0;width:100%}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .k{flex:0 0 26px;height:26px;border-radius:7px;background:var(--surface2);display:grid;place-items:center;font:700 .85rem var(--f-disp);margin-top:1px}
+.opt .t{display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere}
+.opt .t b{font-weight:600}
+.opt .t small{color:var(--muted);font-size:.84rem}
+.opt.good{border-color:var(--good);background:var(--good-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.opt:disabled{cursor:default}
+.imgopts{grid-template-columns:repeat(2,1fr)}
+.imgopt{background:var(--card);border:2px solid #d5dbe4;border-radius:12px;height:150px;display:flex;align-items:center;justify-content:center;padding:10px;position:relative;width:100%}
+.imgopt img{width:100%;height:100%;object-fit:contain}
+.imgopt .k{position:absolute;top:6px;left:6px;background:#e4e9f0;color:#13202f;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;font:700 .8rem var(--f-disp)}
+.imgopt.good{border-color:var(--good);box-shadow:0 0 0 3px var(--good-bg)}
+.imgopt.bad{border-color:var(--bad);box-shadow:0 0 0 3px var(--bad-bg)}
+.fb{border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.fb.good{background:var(--good-bg);border:1px solid var(--good)}
+.fb.bad{background:var(--bad-bg);border:1px solid var(--bad)}
+.fb h3{font-size:1.4rem}
+.fb.good h3{color:var(--good)} .fb.bad h3{color:var(--bad)}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cmp>div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp .lab{font:700 .75rem var(--f-disp);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cmp .lab.ok{color:var(--good)} .cmp .lab.no{color:var(--bad)}
+.mini{background:var(--card);border:1px solid #d5dbe4;border-radius:8px;height:92px;display:flex;align-items:center;justify-content:center;padding:6px}
+.mini img{width:100%;height:100%;object-fit:contain}
+.mean b{display:block}.mean small{color:var(--muted)}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.note p{margin:0}.note .code{font:700 .8rem var(--f-disp);letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.nl{font-style:italic;color:var(--muted);font-size:.9rem}
+.next{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:12px 22px;font-weight:600;font-size:1rem}
+.actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+.ghost{background:transparent;border:1px solid var(--line);border-radius:9px;padding:8px 12px;color:var(--muted)}
+.progress{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:8px;min-width:0}
+.gcard .mini{height:100px}
+.gcard b{font-weight:600;font-size:.9rem}
+.gcard small{color:var(--muted)}
+.gcard.open{grid-column:1/-1}
+.badge{font:700 .7rem var(--f-disp);letter-spacing:.06em;text-transform:uppercase;background:var(--surface2);border-radius:6px;padding:2px 6px;color:var(--muted);align-self:flex-start}
+.result{display:flex;flex-direction:column;gap:12px}
+.score{font:700 3rem/1 var(--f-disp)}
+.pass{color:var(--good)}.fail{color:var(--bad)}
+.mlist{display:flex;flex-direction:column;gap:8px}
+.mrow{display:grid;grid-template-columns:80px 1fr;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px;align-items:center;min-width:0}
+.mrow .mini{height:70px}
+.empty{text-align:center;color:var(--muted);padding:26px 10px}
+@media (max-width:420px){.cmp{grid-template-columns:1fr}.imgopts{gap:8px}h1{font-size:1.7rem}}
+@media (prefers-reduced-motion:no-preference){.opt,.next,.tab{transition:background .12s,border-color .12s}}
+</style>
+<div class="wrap" id="app">
+  <header>
+    <div>
+      <h1>Levha Antrenörü</h1>
+      <div class="sub">Belçika B ehliyeti teori sınavı için trafik levhaları</div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <div class="filters" id="cats" role="group" aria-label="Kategori filtresi"></div>
+  <div class="row">
+    <label>Levha kapsamı
+      <select id="scope"><option value="core">Önemli levhalar</option><option value="all">Tüm resmî levhalar</option></select></label>
+    <label>Dil
+      <select id="lang"><option value="both">EN + Türkçe</option><option value="tr">Türkçe</option><option value="en">English</option></select></label>
+    <span id="poolinfo"></span>
+  </div>
+  <main id="main"></main>
+  <footer class="sub" id="foot"></footer>
+</div>
+<script>
+const ITEMS=__DATA__;
+const CATS={W:'Tehlike uyarısı',P:'Öncelik',C:'Yasak',D:'Zorunlu',E:'Park / durma',I:'Bilgi / yön',Z:'Bölge',S:'Alt levha'};
+const MODES=[['train','Antrenman'],['reverse','Levhayı bul'],['exam','Sınav (20)'],['guide','Levha rehberi'],['weak','Zayıf noktalar']];
+const byId=Object.fromEntries(ITEMS.map(i=>[i.id,i]));
+const KEY='levha-antrenoru-v1';
+let st={mode:'train',cats:[],scope:'core',lang:'both',prog:{},streak:0,best:0,total:0,right:0};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)st=Object.assign(st,s)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let cur=null, exam=null, guideQ='', openId=null;
+
+function pool(){
+  return ITEMS.filter(i=>(st.scope==='all'||i.pri===1)&&(!st.cats.length||st.cats.includes(i.cat)));
+}
+function names(i){
+  const en=esc(i.en),tr=esc(i.tr);
+  if(st.lang==='tr')return `<b>${tr}</b>`;
+  if(st.lang==='en')return `<b>${en}</b>`;
+  return `<b>${en}</b><small>${tr}</small>`;
+}
+const STOP=new Set(['a','an','the','of','for','and','or','to','in','on','with','than','all','is','are','begin','end','panel','sign']);
+const toks=i=>new Set(i.en.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w&&!STOP.has(w)));
+const tokCache={};const tk=i=>tokCache[i.id]||(tokCache[i.id]=toks(i));
+function sim(a,b){
+  const A=tk(a),B=tk(b);let n=0;A.forEach(w=>{if(B.has(w))n++});
+  let s=n/Math.max(1,(A.size+B.size-n));
+  if(a.code&&b.code&&a.code[0]===b.code[0])s+=.15;
+  if(a.cat===b.cat)s+=.3;
+  return s;
+}
+function pickWeighted(arr,exclude){
+  const w=arr.filter(i=>i.id!==exclude).map(i=>{
+    const p=st.prog[i.id];let x=4;
+    if(p){x=[6,3.5,2,1,.4][Math.min(4,p.box||0)];}
+    return [i,x];
+  });
+  let t=w.reduce((a,b)=>a+b[1],0),r=Math.random()*t;
+  for(const [i,x] of w){r-=x;if(r<=0)return i}
+  return w.length?w[0][0]:null;
+}
+function distractors(item,n){
+  const same=ITEMS.filter(i=>i.id!==item.id&&i.tr!==item.tr&&i.en!==item.en&&i.cat===item.cat);
+  const base=same.length>=n+2?same:ITEMS.filter(i=>i.id!==item.id&&i.tr!==item.tr&&i.en!==item.en);
+  const ranked=base.map(i=>[i,sim(item,i)+Math.random()*.08]).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+  const out=[];const seen=new Set([item.tr]);
+  const top=ranked.slice(0,8);
+  while(out.length<n-1&&top.length){const j=Math.floor(Math.random()*top.length);const c=top.splice(j,1)[0];if(!seen.has(c.tr)){seen.add(c.tr);out.push(c)}}
+  const rest=ranked.slice(8).sort(()=>Math.random()-.5);
+  for(const c of rest){if(out.length>=n)break;if(!seen.has(c.tr)){seen.add(c.tr);out.push(c)}}
+  return out;
+}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function makeQ(item,kind){
+  return {item,kind,opts:shuffle([item,...distractors(item,3)]),picked:null};
+}
+function record(item,ok){
+  const p=st.prog[item.id]||(st.prog[item.id]={box:0,r:0,w:0});
+  if(ok){p.r++;p.box=Math.min(4,(p.box||0)+1);st.streak++;st.right++;st.best=Math.max(st.best,st.streak)}
+  else{p.w++;p.box=0;st.streak=0}
+  st.total++;save();renderStats();
+}
+function renderStats(){
+  const p=Object.values(st.prog);const learned=p.filter(x=>x.box>=3).length;
+  const pc=st.total?Math.round(100*st.right/st.total):0;
+  $('#stats').innerHTML=`<div class="stat"><b>${st.total}</b><span>Cevap</span></div><div class="stat"><b>${pc}%</b><span>Doğru</span></div><div class="stat"><b>${st.streak}</b><span>Seri</span></div><div class="stat"><b>${learned}/${ITEMS.length}</b><span>Öğrenilen</span></div>`;
+}
+function renderTabs(){
+  $('#tabs').innerHTML=MODES.map(([k,l])=>`<button class="tab" role="tab" aria-selected="${st.mode===k}" data-m="${k}">${l}</button>`).join('');
+  $('#cats').innerHTML=Object.entries(CATS).map(([k,l])=>`<button class="chip" aria-pressed="${st.cats.includes(k)}" data-c="${k}">${l}</button>`).join('')+(st.cats.length?`<button class="chip" data-c="*">Temizle</button>`:'');
+  $('#scope').value=st.scope;$('#lang').value=st.lang;
+  const n=pool().length;$('#poolinfo').textContent=`${n} levha havuzda`;
+}
+function signHTML(i,cls='sign'){return `<div class="${cls}"><img alt="" src="${i.img}"></div>`}
+function details(i){
+  const parts=[];
+  parts.push(`<div class="mean">${names(i)}${st.lang==='both'?'':`<small>${st.lang==='tr'?esc(i.en):esc(i.tr)}</small>`}</div>`);
+  const extra=[];
+  if(i.code)extra.push(`<div class="code">Resmî kod: ${esc(i.code)}</div>`);
+  if(i.note)extra.push(`<p>${esc(i.note)}</p>`);
+  if(i.nl)extra.push(`<p class="nl">Hollandaca (resmî): ${esc(i.nl)}</p>`);
+  if(extra.length)parts.push(`<div class="note">${extra.join('')}</div>`);
+  return parts.join('');
+}
+function renderQuestion(){
+  const q=cur;if(!q){nextQuestion();return}
+  const n=exam?`Soru ${exam.idx+1} / ${exam.qs.length}`:CATS[q.item.cat];
+  let h=`<div class="card q"><div class="qhead"><span>${n}</span><span>${q.kind==='img'?'Anlamdan levhaya':'Levhadan anlama'}</span></div>`;
+  if(exam)h+=`<div class="progress"><i style="width:${100*exam.idx/exam.qs.length}%"></i></div>`;
+  if(q.kind==='img'){
+    h+=`<div class="qtext">${st.lang==='tr'?esc(q.item.tr):st.lang==='en'?esc(q.item.en):esc(q.item.en)+'<br><span class="sub" style="font:500 1rem var(--f-body)">'+esc(q.item.tr)+'</span>'}</div>`;
+    h+=`<div class="opts imgopts">`+q.opts.map((o,k)=>{
+      let c='imgopt';if(q.picked!==null){if(o.id===q.item.id)c+=' good';else if(o.id===q.picked)c+=' bad'}
+      return `<button class="${c}" data-o="${o.id}" ${q.picked!==null?'disabled':''} aria-label="Seçenek ${k+1}"><span class="k">${k+1}</span><img alt="" src="${o.img}"></button>`}).join('')+`</div>`;
+  }else{
+    h+=signHTML(q.item);
+    h+=`<div class="qtext">Bu levha ne anlama geliyor?</div>`;
+    h+=`<div class="opts">`+q.opts.map((o,k)=>{
+      let c='opt';if(q.picked!==null){if(o.id===q.item.id)c+=' good';else if(o.id===q.picked)c+=' bad'}
+      return `<button class="${c}" data-o="${o.id}" ${q.picked!==null?'disabled':''}><span class="k">${k+1}</span><span class="t">${names(o)}</span></button>`}).join('')+`</div>`;
+  }
+  if(q.picked!==null)h+=feedback(q);
+  h+=`</div>`;
+  $('#main').innerHTML=h;
+}
+function feedback(q){
+  const ok=q.picked===q.item.id,it=q.item,pk=byId[q.picked];
+  let h=`<div class="fb ${ok?'good':'bad'}"><h3>${ok?'Doğru':'Yanlış'}</h3>`;
+  if(!ok){
+    h+=`<div class="cmp"><div><span class="lab no">Senin cevabın</span>${q.kind==='img'?`<div class="mini"><img alt="" src="${pk.img}"></div>`:''}<div class="mean">${names(pk)}</div>${q.kind==='img'?'':`<span class="sub">Bu anlam şu levhaya ait:</span><div class="mini"><img alt="" src="${pk.img}"></div>`}</div>
+    <div><span class="lab ok">Doğrusu</span><div class="mini"><img alt="" src="${it.img}"></div><div class="mean">${names(it)}</div></div></div>`;
+    h+=details(it).replace(/^<div class="mean">.*?<\/div>/,'');
+  }else h+=details(it);
+  h+=`<button class="next" id="next">${exam&&exam.idx===exam.qs.length-1?'Sonucu gör':'Sonraki'} (Enter)</button></div>`;
+  return h;
+}
+function nextQuestion(){
+  if(st.mode==='exam'){
+    if(!exam||exam.done){startExam()}
+    if(exam.idx>=exam.qs.length){exam.done=true;return renderResult()}
+    cur=exam.qs[exam.idx];return renderQuestion();
+  }
+  const p=st.mode==='weak'?pool().filter(i=>(st.prog[i.id]||{}).w>0):pool();
+  if(!p.length){$('#main').innerHTML=`<div class="card empty">${st.mode==='weak'?'Henüz yanlış yaptığın levha yok. Antrenmana geç, burada yanlışlar toplanır.':'Seçtiğin filtrelerde levha yok.'}</div>`;cur=null;return}
+  const it=pickWeighted(p,cur&&cur.item.id)||p[0];
+  cur=makeQ(it,st.mode==='reverse'?'img':'txt');renderQuestion();
+}
+function startExam(){
+  const p=shuffle(pool()).slice(0,20);
+  exam={qs:p.map(i=>makeQ(i,Math.random()<.25?'img':'txt')),idx:0,ok:0,miss:[],done:false};
+}
+function answer(id){
+  if(!cur||cur.picked!==null)return;
+  cur.picked=id;const ok=id===cur.item.id;
+  record(cur.item,ok);
+  if(exam){if(ok)exam.ok++;else exam.miss.push(cur.item)}
+  renderQuestion();
+  const fb=document.querySelector('.fb');if(fb)fb.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function advance(){
+  if(exam){exam.idx++}
+  cur=null;nextQuestion();window.scrollTo({top:0});
+}
+function renderResult(){
+  const n=exam.qs.length,ok=exam.ok,pass=ok>=Math.ceil(n*0.82);
+  let h=`<div class="card result"><div class="qhead"><span>Sınav bitti</span></div><div class="score ${pass?'pass':'fail'}">${ok} / ${n}</div>
+  <div>${pass?'Güzel. Gerçek sınavda 50 sorudan 41 doğru gerekir (yaklaşık %82); bu oranın üstündesin.':'Gerçek sınavda 50 sorudan en az 41 doğru gerekir (yaklaşık %82). Aşağıdaki levhaları tekrar çalış.'}</div>`;
+  if(exam.miss.length){h+=`<h3>Yanlış yaptıkların</h3><div class="mlist">`+exam.miss.map(i=>`<div class="mrow"><div class="mini"><img alt="" src="${i.img}"></div><div class="mean">${names(i)}${i.note?`<small>${esc(i.note)}</small>`:''}</div></div>`).join('')+`</div>`}
+  h+=`<div class="actions"><button class="ghost" id="again">Yeni sınav</button></div></div>`;
+  $('#main').innerHTML=h;
+}
+function renderGuide(){
+  const q=guideQ.trim().toLowerCase();
+  const p=pool().filter(i=>!q||(i.en+' '+i.tr+' '+i.code+' '+i.nl).toLowerCase().includes(q));
+  let h=`<input type="search" id="gq" placeholder="Levha ara (ör. STOP, B5, bisiklet, park)" value="${esc(guideQ)}" aria-label="Levha ara"><div class="grid">`;
+  h+=p.map(i=>{const o=openId===i.id;return `<button class="gcard${o?' open':''}" data-g="${i.id}"><div class="mini"><img alt="" loading="lazy" src="${i.img}"></div><span class="badge">${CATS[i.cat]}${i.code?' · '+esc(i.code):''}</span><div class="mean">${names(i)}</div>${o?details(i).replace(/^<div class="mean">.*?<\/div>/,''):''}</button>`}).join('')+`</div>`;
+  if(!p.length)h+=`<div class="empty">Sonuç yok.</div>`;
+  $('#main').innerHTML=h;
+  const inp=$('#gq');if(inp&&document.activeElement===document.body&&q){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)}
+}
+function render(){
+  renderTabs();renderStats();
+  if(st.mode==='guide')return renderGuide();
+  if(st.mode==='exam'&&(!exam||exam.done)&&!cur){startExam();cur=exam.qs[0]}
+  nextQuestion();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.m){st.mode=t.dataset.m;exam=null;cur=null;save();return render()}
+  if(t.dataset.c){if(t.dataset.c==='*')st.cats=[];else{const k=t.dataset.c;st.cats=st.cats.includes(k)?st.cats.filter(x=>x!==k):[...st.cats,k]}exam=null;cur=null;save();return render()}
+  if(t.dataset.o)return answer(t.dataset.o);
+  if(t.id==='next')return advance();
+  if(t.id==='again'){exam=null;cur=null;return render()}
+  if(t.dataset.g){openId=openId===t.dataset.g?null:t.dataset.g;return renderGuide()}
+  if(t.id==='reset'){if(t.dataset.arm){st.prog={};st.total=st.right=st.streak=st.best=0;save();return render()}t.dataset.arm=1;t.textContent='Emin misin? Tekrar bas';}
+});
+document.addEventListener('input',e=>{if(e.target.id==='gq'){guideQ=e.target.value;renderGuide()}});
+document.addEventListener('change',e=>{
+  if(e.target.id==='scope'){st.scope=e.target.value;exam=null;cur=null;save();render()}
+  if(e.target.id==='lang'){st.lang=e.target.value;save();render()}
+});
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;
+  if(st.mode==='guide')return;
+  if(/^[1-4]$/.test(e.key)&&cur&&cur.picked===null){const o=cur.opts[+e.key-1];if(o)answer(o.id)}
+  else if((e.key==='Enter'||e.key===' ')&&cur&&cur.picked!==null){e.preventDefault();advance()}
+});
+$('#foot').innerHTML=`${ITEMS.length} levha · Kaynak: wegcode.be (KB 01-12-1975) ve kendi notların. İlerleme yalnız bu tarayıcıda saklanır. <button class="ghost" id="reset" style="margin-left:6px">İlerlemeyi sıfırla</button>`;
+render();
+</script>
