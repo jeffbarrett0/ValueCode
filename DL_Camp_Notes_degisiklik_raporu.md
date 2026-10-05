@@ -50,3 +50,16 @@ Otoyol çıkış şeridi 90 km/h; polis memuru "yavaşla/hızlan" işaretleri; y
 | 6 | Kavşak, yaya geçidi, trafik ışığı, bisiklet yolu, kaldırım: "park yasak" → "durmak ve park yasak" | Art. 24 |
 | 6 | Otobüs durağı: levhanın iki yanında 15 m | Art. 25.1 2° |
 | 13 | E5 / E7: bu tarafta park yasak (ayın 1–15 / 16–sonu) | Art. 70.1 |
+
+## 4. tur (açık kalan 8 madde)
+| Madde | Sonuç |
+|---|---|
+| Otoyol çıkış şeridi 90 km/h | Wegcode'da yok → satır kaldırıldı; yerine doğrulanmış kural: >3,5 t araçlar ve otobüsler otoyolda 90 (kemerli + 100 sınırlayıcılı autocar 100) — Art. 11.2 |
+| Polis "yavaşla/hızlan" işaretleri | Wegcode Art. 4.2'de yalnız: kol dik = dur; kol yatay = dur (o yöne); kırmızı ışık sallama = dur. İki işaret silindi |
+| Yakıt çevre sıralaması | Belçika ders materyaliyle uyumlu (LPG > benzin > düşük kükürtlü dizel > dizel); yasa değil, ders içeriği; bırakıldı |
+| Far menzilleri (30 / 100+ / 150 m) | Yasada yok, ders materyalinde var; "study-guide figures" etiketi eklendi, bırakıldı |
+| Park diski cezası | Art. 27 derecelendirilmemiş → 1. derece = €64 (2026) olarak yazıldı |
+| M+S lastik (1 Eki–30 Nis + etiket) | Birden çok kaynakta doğrulandı (VAB, ANWB, Michelin); bırakıldı |
+| İlk yardım çantası / yangın söndürücü | Kaynaklar çelişiyor; "zorunlu" iddiası "tavsiye edilir, durum belirsiz" yapıldı; sınav için üçgen + yelek kesin |
+| Tıbbi uygunsuzlukta 4 gün | Doğrulandı (KB 23-03-1998; cumartesi, pazar, resmî tatiller sayılmaz); bırakıldı |
+| Yeni sürücü >20 / >30 km/h | Doğrulandı: ehliyet 2 yıldan kısa; zorunlu sürüş yasağı 8 gün–5 yıl, geri kazanım sınavı; 15 gün el koyma mümkün; bırakıldı |
