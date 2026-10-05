@@ -42,3 +42,11 @@ Otoyol çıkış şeridi 90 km/h; polis memuru "yavaşla/hızlan" işaretleri; y
 |---|---|---|
 | 2 | Çekme: yalnız acil/yardımcı kuplajla çekilen araç otoyola giremez; "çekmek tamamen yasak" ve "ilk çıkışta ayrıl" ifadeleri kaldırıldı; puan −1 | Art. 21.1, 49.5 |
 | 3, 7, 13 | "Bisiklet yolunda bisikletli her zaman, soldan bile öncelikli" ifadesi daraltıldı: yolu geçerken bisikletliye yol verilir; kavşakta yol iki kesik çizgiyle devam ediyorsa bisikletlinin önceliği var | Art. 12.4bis, Vlaanderen/Wegcode bisiklet sayfası |
+
+## 3. tur (son kontrol)
+| Gün | Düzeltme | Kaynak |
+|---|---|---|
+| 4 | "Okul çevresinde Zone 30 zorunlu" → okul bölgesi F4a–F4b levhalarıyla işaretlenir | Art. 2.37 |
+| 6 | Kavşak, yaya geçidi, trafik ışığı, bisiklet yolu, kaldırım: "park yasak" → "durmak ve park yasak" | Art. 24 |
+| 6 | Otobüs durağı: levhanın iki yanında 15 m | Art. 25.1 2° |
+| 13 | E5 / E7: bu tarafta park yasak (ayın 1–15 / 16–sonu) | Art. 70.1 |
